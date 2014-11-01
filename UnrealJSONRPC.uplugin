@@ -1,0 +1,22 @@
+{
+	"FileVersion" : 3,
+	
+	"FriendlyName" : "Simple JSON Server",
+	"Version" : 1,
+	"VersionName" : "1.0",
+	"CreatedBy" : "Moritz Wundke",
+	"CreatedByURL" : "http://www.moritzwundke.com",
+	"EngineVersion" : "4.5.0",
+	"Description" : "Server that adds a simple TCP JSON RPC 2.0 server to your game or editor.",
+	"Category" : "Transport",
+	"EnabledByDefault" : true,
+	
+	"Modules" :
+	[
+		{
+			"Name" : "UnrealJSONRPC",
+			"Type" : "Runtime",
+            "LoadingPhase" : "PreDefault"
+		}
+	]
+}
