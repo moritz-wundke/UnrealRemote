@@ -9,6 +9,7 @@
 
 #include "CoreUObject.h"
 #include "Engine.h"
-#include "JSONServer.h"
+#include "Settings.h"
+#include "JSONRPCSettings.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogJSONRPC, Log, All);

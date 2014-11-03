@@ -14,10 +14,16 @@ namespace UnrealBuildTool.Rules
 
 			PrivateIncludePaths.AddRange(
 				new string[] {
-					"Runtime/UnrealJSONRPC/Private",
+					"UnrealJSONRPC/Private"
 					// ... add other private include paths required here ...
 				}
 				);
+
+            PublicIncludePathModuleNames.AddRange(
+                new string[]
+				{
+					"Settings"
+				});
 
 			PublicDependencyModuleNames.AddRange(
 				new string[]

@@ -8,8 +8,9 @@
 	"CreatedByURL" : "http://www.moritzwundke.com",
 	"EngineVersion" : "4.5.0",
 	"Description" : "Server that adds a simple TCP JSON RPC 2.0 server to your game or editor.",
-	"Category" : "Transport",
-	"EnabledByDefault" : true,
+	"Category" : "Messaging",
+	"EnabledByDefault" : false,
+    "CanContainContent" : false,
 	
 	"Modules" :
 	[
