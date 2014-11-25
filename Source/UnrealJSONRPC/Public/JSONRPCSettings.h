@@ -13,6 +13,6 @@ class UJSONRPCSettings : public UObject
     GENERATED_UCLASS_BODY()
 
     UPROPERTY(Config, EditAnywhere, Category = Transport)
-    uint16 ListenPort;
+    uint32 ListenPort;
 
 };
