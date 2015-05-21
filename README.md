@@ -1,4 +1,4 @@
-UnrealJSONRPC
+UnrealEdRemote
 ================
 
-This plugin adds a JSON Server to your game and/or editor to communicate between your external tools
+Very simple TCP Server for the Unreal Editor to execute consoles commands remotely.
