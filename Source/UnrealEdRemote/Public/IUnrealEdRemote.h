@@ -21,7 +21,7 @@ public:
 	 */
     static inline IUnrealEdRemote& Get()
 	{
-        return FModuleManager::LoadModuleChecked< IUnrealJSONRPC >("UnrealEdRemote");
+		return FModuleManager::LoadModuleChecked< IUnrealEdRemote >("UnrealEdRemote");
 	}
 
 	/**

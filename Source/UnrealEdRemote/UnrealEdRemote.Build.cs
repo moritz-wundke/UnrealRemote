@@ -38,6 +38,7 @@ namespace UnrealBuildTool.Rules
 			PrivateDependencyModuleNames.AddRange(
 				new string[]
 				{
+                    "Networking",
                     "Sockets",
 					// ... add private dependencies that you statically link with here ...
 				}

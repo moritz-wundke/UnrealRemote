@@ -1,10 +1,9 @@
 // Copyright (c) 2014 Moritz Wundke
 
 #include "UnrealEdRemotePrivatePCH.h"
-#include "UnrealEdRemoteettings.h"
+#include "UnrealEdRemoteSettings.h"
 
-UJUnrealEdRemoteSettings::UJUnrealEdRemoteSettings(const class FPostConstructInitializeProperties& PCIP)
-    : Super(PCIP),
+UUnrealEdRemoteSettings::UUnrealEdRemoteSettings(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer),
     ListenPort(8080)
 {
 
