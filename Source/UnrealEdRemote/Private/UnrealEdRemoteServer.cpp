@@ -144,7 +144,7 @@ FString FUnrealEdRemoteServer::HandleClientMessage(const FSocket *Socket, const 
 	FString Response;
 
 	const TCHAR* Cmd = *Message;
-	if (FParse::Command(&Cmd, TEXT("EXEC")) && HandleExecCommand(Socket, Message.Mid(FCString::Strlen(TEXT("CMD")))))
+	if (FParse::Command(&Cmd, TEXT("EXEC")) && HandleExecCommand(Socket, Message.Mid(FCString::Strlen(TEXT("EXEC")))))
 	{
 		bProcessed = true;
 	}
