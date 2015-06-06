@@ -3,8 +3,8 @@
 #include "UnrealEdRemotePrivatePCH.h"
 #include "UnrealEdRemoteSettings.h"
 
-UUnrealEdRemoteSettings::UUnrealEdRemoteSettings(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer),
-    ListenPort(8080)
+UUnrealEdRemoteSettings::UUnrealEdRemoteSettings(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer)
 {
 
 }

@@ -101,13 +101,30 @@ void FUnrealEdRemote::ShutdownModule()
 	// unregister application events
 	FCoreDelegates::ApplicationHasReactivatedDelegate.RemoveAll(this);
 	FCoreDelegates::ApplicationWillDeactivateDelegate.RemoveAll(this);
-    
-    UnregisterSettings();
+
 	StopServer();
 }
 
 bool FUnrealEdRemote::HandleSettingsSaved()
 {
+	UUnrealEdRemoteSettings* Settings = GetMutableDefault<UUnrealEdRemoteSettings>();
+	bool ResaveSettings = false;
+
+	FIPv4Endpoint HostEndpoint;
+
+	if (!FIPv4Endpoint::Parse(Settings->HostEndpoint, HostEndpoint))
+	{
+		GLog->Logf(TEXT("Warning: Invalid HostEndpoint'%s' - using default endpoint '%s' instead"), *Settings->HostEndpoint, *DEFAULT_ENDPOINT.ToText().ToString());
+		HostEndpoint = DEFAULT_ENDPOINT;
+		Settings->HostEndpoint = HostEndpoint.ToString();
+		ResaveSettings = true;
+	}
+
+	if (ResaveSettings)
+	{
+		Settings->SaveConfig();
+	}
+
 	RestartServer();
     return true;
 }

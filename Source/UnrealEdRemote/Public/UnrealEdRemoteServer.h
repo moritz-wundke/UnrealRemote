@@ -60,6 +60,9 @@ private:
 	/** Connection thread, used to not block the editor when waiting for connections */
 	FRunnableThread* Thread = NULL;
 
+	/** The endpoint used for the server */
+	FIPv4Endpoint HostEndpoint;
+
 	/** Basic message handling, will get extended */
 	FString HandleClientMessage(const FSocket *Socket, const FString& Message);
 	bool HandleExecCommand(const FSocket *Socket, const FString& Command);

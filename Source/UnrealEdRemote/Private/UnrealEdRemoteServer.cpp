@@ -7,6 +7,14 @@
 FUnrealEdRemoteServer::FUnrealEdRemoteServer()
 	: Listener(NULL), Thread(NULL)
 {
+	const UUnrealEdRemoteSettings& Settings = *GetDefault<UUnrealEdRemoteSettings>();
+	if (!FIPv4Endpoint::Parse(Settings.HostEndpoint, HostEndpoint))
+	{
+		GLog->Logf(TEXT("Warning: Invalid HostEndpoint'%s' - using default endpoint '%s' instead"), *Settings.HostEndpoint, *DEFAULT_ENDPOINT.ToText().ToString());
+		HostEndpoint = DEFAULT_ENDPOINT;
+	}
+
+	// Create thread
 	Thread = FRunnableThread::Create(this, TEXT("FUnrealEdRemoteServer"), 8 * 1024, TPri_Normal);
 }
 
@@ -60,7 +68,7 @@ bool FUnrealEdRemoteServer::Init()
 {
 	if (Listener == NULL)
 	{
-		Listener = new FTcpListener(DEFAULT_ENDPOINT);
+		Listener = new FTcpListener(HostEndpoint);
 		Listener->OnConnectionAccepted().BindRaw(this, &FUnrealEdRemoteServer::HandleListenerConnectionAccepted);
 		Stopping = false;
 	}

@@ -15,12 +15,15 @@ class UUnrealEdRemoteSettings : public UObject
 public:
 	UUnrealEdRemoteSettings(const FObjectInitializer& ObjectInitializer);
 
+	/** The IP endpoint we host the remote editor server */
     UPROPERTY(Config, EditAnywhere, Category = Transport)
-    int32 ListenPort;
+	FString HostEndpoint;
 
+	/** Enable the server in-game or not (enable for packaged builds if needed) */
     UPROPERTY(Config, EditAnywhere, Category = General)
     bool EnableInGame;
 
+	/** Enable or disable the whole server */
 	UPROPERTY(Config, EditAnywhere, Category = General)
 	bool Enabled;
 
