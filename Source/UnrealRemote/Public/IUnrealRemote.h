@@ -8,7 +8,7 @@
  * The public interface to this module.  In most cases, this interface is only public to sibling modules 
  * within this plugin.
  */
-class IUnrealEdRemote : public IModuleInterface
+class IUnrealRemote : public IModuleInterface
 {
 
 public:
@@ -19,9 +19,9 @@ public:
 	 *
 	 * @return Returns singleton instance, loading the module on demand if needed
 	 */
-    static inline IUnrealEdRemote& Get()
+    static inline IUnrealRemote& Get()
 	{
-		return FModuleManager::LoadModuleChecked< IUnrealEdRemote >("UnrealEdRemote");
+		return FModuleManager::LoadModuleChecked< IUnrealRemote >("UnrealRemote");
 	}
 
 	/**
@@ -31,6 +31,6 @@ public:
 	 */
 	static inline bool IsAvailable()
 	{
-		return FModuleManager::Get().IsModuleLoaded( "UnrealEdRemote" );
+		return FModuleManager::Get().IsModuleLoaded( "UnrealRemote" );
 	}
 };

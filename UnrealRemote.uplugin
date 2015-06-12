@@ -1,13 +1,13 @@
 {
 	"FileVersion" : 3,
 	
-	"FriendlyName" : "Unreal Ed Remote",
+	"FriendlyName" : "Unreal Remote",
 	"Version" : 1,
 	"VersionName" : "1.0",
 	"CreatedBy" : "Moritz Wundke",
 	"CreatedByURL" : "http://www.moritzwundke.com",
 	"EngineVersion" : "4.7.6",
-	"Description" : "Very simple TCP Server for the Unreal Editor to execute consoles commands remotely.",
+	"Description" : "JSONRPC Socket server to enable remote access to both the editor and a packaged game.",
 	"Category" : "Messaging",
 	"EnabledByDefault" : false,
     "CanContainContent" : false,
@@ -15,7 +15,7 @@
 	"Modules" :
 	[
 		{
-			"Name" : "UnrealEdRemote",
+			"Name" : "UnrealRemote",
 			"Type" : "Runtime",
             "LoadingPhase" : "PreDefault"
 		}

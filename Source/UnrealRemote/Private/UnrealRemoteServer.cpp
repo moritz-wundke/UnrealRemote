@@ -1,13 +1,13 @@
 // Copyright (c) 2014 Moritz Wundke
 
-#include "UnrealEdRemotePrivatePCH.h"
-#include "UnrealEdRemoteServer.h"
+#include "UnrealRemotePrivatePCH.h"
+#include "UnrealRemoteServer.h"
 #include "Runtime/Core/Public/Misc/CString.h"
 
-FUnrealEdRemoteServer::FUnrealEdRemoteServer()
+FUnrealRemoteServer::FUnrealRemoteServer()
 	: Listener(NULL), Thread(NULL)
 {
-	const UUnrealEdRemoteSettings& Settings = *GetDefault<UUnrealEdRemoteSettings>();
+	const UUnrealRemoteSettings& Settings = *GetDefault<UUnrealRemoteSettings>();
 	if (!FIPv4Endpoint::Parse(Settings.HostEndpoint, HostEndpoint))
 	{
 		GLog->Logf(TEXT("Warning: Invalid HostEndpoint'%s' - using default endpoint '%s' instead"), *Settings.HostEndpoint, *DEFAULT_ENDPOINT.ToText().ToString());
@@ -15,10 +15,10 @@ FUnrealEdRemoteServer::FUnrealEdRemoteServer()
 	}
 
 	// Create thread
-	Thread = FRunnableThread::Create(this, TEXT("FUnrealEdRemoteServer"), 8 * 1024, TPri_Normal);
+	Thread = FRunnableThread::Create(this, TEXT("FUnrealRemoteServer"), 8 * 1024, TPri_Normal);
 }
 
-FUnrealEdRemoteServer::~FUnrealEdRemoteServer()
+FUnrealRemoteServer::~FUnrealRemoteServer()
 {
 	// Stop the runnable
 	Stop();
@@ -53,23 +53,23 @@ FUnrealEdRemoteServer::~FUnrealEdRemoteServer()
 	}
 }
 
-void FUnrealEdRemoteServer::OnSettingsChanged(const UUnrealEdRemoteSettings& Settings)
+void FUnrealRemoteServer::OnSettingsChanged(const UUnrealRemoteSettings& Settings)
 {
 
 }
 
-bool FUnrealEdRemoteServer::HandleListenerConnectionAccepted(class FSocket* ClientSocket, const FIPv4Endpoint& ClientEndpoint)
+bool FUnrealRemoteServer::HandleListenerConnectionAccepted(class FSocket* ClientSocket, const FIPv4Endpoint& ClientEndpoint)
 {
 	PendingClients.Enqueue(ClientSocket);
 	return true;
 }
 
-bool FUnrealEdRemoteServer::Init()
+bool FUnrealRemoteServer::Init()
 {
 	if (Listener == NULL)
 	{
 		Listener = new FTcpListener(HostEndpoint);
-		Listener->OnConnectionAccepted().BindRaw(this, &FUnrealEdRemoteServer::HandleListenerConnectionAccepted);
+		Listener->OnConnectionAccepted().BindRaw(this, &FUnrealRemoteServer::HandleListenerConnectionAccepted);
 		Stopping = false;
 	}
 	return (Listener != NULL);
@@ -102,7 +102,7 @@ bool RecvMessage(FSocket *Socket, uint32 DataSize, FString& Message)
 	return false;
 }
 
-uint32 FUnrealEdRemoteServer::Run()
+uint32 FUnrealRemoteServer::Run()
 {
 	while (!Stopping)
 	{
@@ -146,7 +146,7 @@ uint32 FUnrealEdRemoteServer::Run()
 	return 0;
 }
 
-FString FUnrealEdRemoteServer::HandleClientMessage(const FSocket *Socket, const FString& Message)
+FString FUnrealRemoteServer::HandleClientMessage(const FSocket *Socket, const FString& Message)
 {
 	bool bProcessed = false;
 	FString Response;
@@ -160,7 +160,7 @@ FString FUnrealEdRemoteServer::HandleClientMessage(const FSocket *Socket, const 
 	return bProcessed ? TEXT("OK") : TEXT("FAILED");
 }
 
-bool FUnrealEdRemoteServer::HandleExecCommand(const FSocket *Socket, const FString& Command)
+bool FUnrealRemoteServer::HandleExecCommand(const FSocket *Socket, const FString& Command)
 {
 	if (GEngine != NULL)
 	{

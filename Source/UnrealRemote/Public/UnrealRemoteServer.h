@@ -4,7 +4,7 @@
 
 #include "Networking.h"
 #include "TcpListener.h"
-#include "UnrealEdRemoteSettings.h"
+#include "UnrealRemoteSettings.h"
 
 // Default endpoint for the server
 #define DEFAULT_ENDPOINT FIPv4Endpoint(FIPv4Address(127, 0, 0, 1), 5005)
@@ -12,15 +12,15 @@
 /**
  * Server listening on a TCP socket
  */
-class FUnrealEdRemoteServer
+class FUnrealRemoteServer
 	: public FRunnable
 {
 public:
-	FUnrealEdRemoteServer();
+	FUnrealRemoteServer();
 
-	~FUnrealEdRemoteServer();
+	~FUnrealRemoteServer();
 
-	void OnSettingsChanged(const UUnrealEdRemoteSettings& Settings);
+	void OnSettingsChanged(const UUnrealRemoteSettings& Settings);
 
 	/** FRunnable init */
 	virtual bool Init() override;

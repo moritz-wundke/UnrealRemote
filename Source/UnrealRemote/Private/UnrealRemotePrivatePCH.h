@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "IUnrealEdRemote.h"
+#include "IUnrealRemote.h"
 
 // You should place include statements to your module's private header files here.  You only need to
 // add includes for headers that are used in most of your module's source files though.
@@ -11,4 +11,4 @@
 #include "Engine.h"
 //#include "Settings.h"
 
-DECLARE_LOG_CATEGORY_EXTERN(LogUnrealEdRemote, Log, All);
+DECLARE_LOG_CATEGORY_EXTERN(LogUnrealRemote, Log, All);

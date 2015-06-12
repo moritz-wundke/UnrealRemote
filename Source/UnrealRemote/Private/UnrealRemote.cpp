@@ -1,20 +1,20 @@
 // Copyright (c) 2014-2015 Moritz Wundke
 
-#include "UnrealEdRemotePrivatePCH.h"
+#include "UnrealRemotePrivatePCH.h"
 
 // Settings
-#include "UnrealEdRemoteSettings.h"
+#include "UnrealRemoteSettings.h"
 #include "ISettingsModule.h"
 #include "ISettingsSection.h"
 
 // The server
-#include "UnrealEdRemoteServer.h"
+#include "UnrealRemoteServer.h"
 
-DEFINE_LOG_CATEGORY(LogUnrealEdRemote);
+DEFINE_LOG_CATEGORY(LogUnrealRemote);
 
-#define LOCTEXT_NAMESPACE "UnrealEdRemote"
+#define LOCTEXT_NAMESPACE "UnrealRemote"
 
-class FUnrealEdRemote: public IUnrealEdRemote
+class FUnrealRemote: public IUnrealRemote
 {
 	/** IModuleInterface implementation */
 	virtual void StartupModule() override;
@@ -34,16 +34,16 @@ private:
 		if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
 		{
 			// Register the settings
-			ISettingsSectionPtr SettingsSection = SettingsModule->RegisterSettings("Project", "Plugins", "UnrealEdRemote",
-				LOCTEXT("RuntimeSettingsName", "Unreal Ed Remote"),
-				LOCTEXT("RuntimeSettingsDescription", "Configure the Unreal Ed Remote plugin"),
-				GetMutableDefault<UUnrealEdRemoteSettings>()
+			ISettingsSectionPtr SettingsSection = SettingsModule->RegisterSettings("Project", "Plugins", "UnrealRemote",
+				LOCTEXT("RuntimeSettingsName", "Unreal Remote"),
+				LOCTEXT("RuntimeSettingsDescription", "Configure the Unreal Remote plugin"),
+				GetMutableDefault<UUnrealRemoteSettings>()
 				);
 
 			// Set the save handle, used to restart the server in case of a server change
 			if (SettingsSection.IsValid())
 			{
-				SettingsSection->OnModified().BindRaw(this, &FUnrealEdRemote::HandleSettingsSaved);
+				SettingsSection->OnModified().BindRaw(this, &FUnrealRemote::HandleSettingsSaved);
 			}
 		}
     }
@@ -53,7 +53,7 @@ private:
 		// unregister settings
 		if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>("Settings"))
 		{
-			SettingsModule->UnregisterSettings("Project", "Plugins", "UnrealEdRemote");
+			SettingsModule->UnregisterSettings("Project", "Plugins", "UnrealRemote");
 		}
     }
 
@@ -77,26 +77,26 @@ private:
 private:
 
 	/** The server that is currently lifted-up */
-	FUnrealEdRemoteServer* ServerInstance = NULL;
+	FUnrealRemoteServer* ServerInstance = NULL;
 };
 
-IMPLEMENT_MODULE( FUnrealEdRemote, UnrealEdRemote )
+IMPLEMENT_MODULE( FUnrealRemote, UnrealRemote )
 
-void FUnrealEdRemote::StartupModule()
+void FUnrealRemote::StartupModule()
 {
     RegisterSettings();
 
 	// register application events
-	FCoreDelegates::ApplicationHasReactivatedDelegate.AddRaw(this, &FUnrealEdRemote::HandleApplicationHasReactivated);
-	FCoreDelegates::ApplicationWillDeactivateDelegate.AddRaw(this, &FUnrealEdRemote::HandleApplicationWillDeactivate);
+	FCoreDelegates::ApplicationHasReactivatedDelegate.AddRaw(this, &FUnrealRemote::HandleApplicationHasReactivated);
+	FCoreDelegates::ApplicationWillDeactivateDelegate.AddRaw(this, &FUnrealRemote::HandleApplicationWillDeactivate);
 
 	// Start it all!
 	RestartServer();
 
-    UE_LOG(LogUnrealEdRemote, Display, TEXT("Unreal Ed Remote running!"));
+    UE_LOG(LogUnrealRemote, Display, TEXT("Unreal Remote running!"));
 }
 
-void FUnrealEdRemote::ShutdownModule()
+void FUnrealRemote::ShutdownModule()
 {
 	// unregister application events
 	FCoreDelegates::ApplicationHasReactivatedDelegate.RemoveAll(this);
@@ -110,9 +110,9 @@ void FUnrealEdRemote::ShutdownModule()
 	}
 }
 
-bool FUnrealEdRemote::HandleSettingsSaved()
+bool FUnrealRemote::HandleSettingsSaved()
 {
-	UUnrealEdRemoteSettings* Settings = GetMutableDefault<UUnrealEdRemoteSettings>();
+	UUnrealRemoteSettings* Settings = GetMutableDefault<UUnrealRemoteSettings>();
 	bool ResaveSettings = false;
 
 	FIPv4Endpoint HostEndpoint;
@@ -134,18 +134,18 @@ bool FUnrealEdRemote::HandleSettingsSaved()
     return true;
 }
 
-void FUnrealEdRemote::InitServer()
+void FUnrealRemote::InitServer()
 {
 	StopServer();
 
 	// Get settings and start server
-	//const UUnrealEdRemoteSettings& Settings = *GetDefault<UUnrealEdRemoteSettings>();
-	ServerInstance = new FUnrealEdRemoteServer();
+	//const UUnrealRemoteSettings& Settings = *GetDefault<UUnrealRemoteSettings>();
+	ServerInstance = new FUnrealRemoteServer();
 }
 
-void FUnrealEdRemote::RestartServer()
+void FUnrealRemote::RestartServer()
 {
-	const UUnrealEdRemoteSettings& Settings = *GetDefault<UUnrealEdRemoteSettings>();
+	const UUnrealRemoteSettings& Settings = *GetDefault<UUnrealRemoteSettings>();
 	if (Settings.Enabled)
 	{
 		if (ServerInstance == NULL || !ServerInstance->IsActive())
@@ -159,7 +159,7 @@ void FUnrealEdRemote::RestartServer()
 	}
 }
 
-void FUnrealEdRemote::StopServer()
+void FUnrealRemote::StopServer()
 {
 	if (ServerInstance != NULL)
 	{

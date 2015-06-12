@@ -2,18 +2,18 @@
 
 #pragma once
 
-#include "UnrealEdRemoteSettings.generated.h"
+#include "UnrealRemoteSettings.generated.h"
 
 /**
 * Setting object used to hold both config settings and editable ones in one place
 */
 UCLASS(config = Engine)
-class UUnrealEdRemoteSettings : public UObject
+class UUnrealRemoteSettings : public UObject
 {
 	GENERATED_BODY()
 
 public:
-	UUnrealEdRemoteSettings(const FObjectInitializer& ObjectInitializer);
+	UUnrealRemoteSettings(const FObjectInitializer& ObjectInitializer);
 
 	/** The IP endpoint we host the remote editor server */
     UPROPERTY(Config, EditAnywhere, Category = Transport)

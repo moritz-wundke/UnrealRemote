@@ -1,4 +1,4 @@
-UnrealEdRemote
+UnrealRemote
 ================
 
-Very simple TCP Server for the Unreal Editor to execute consoles commands remotely.
+JSONRPC Socket server to enable remote access to both the editor and a packaged game.

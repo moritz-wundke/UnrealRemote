@@ -2,9 +2,9 @@
 
 namespace UnrealBuildTool.Rules
 {
-	public class UnrealEdRemote : ModuleRules
+	public class UnrealRemote : ModuleRules
 	{
-		public UnrealEdRemote(TargetInfo Target)
+		public UnrealRemote(TargetInfo Target)
 		{
 			PublicIncludePaths.AddRange(
 				new string[] {
@@ -14,7 +14,7 @@ namespace UnrealBuildTool.Rules
 
 			PrivateIncludePaths.AddRange(
 				new string[] {
-					"UnrealEdRemote/Private"
+					"UnrealRemote/Private"
 					// ... add other private include paths required here ...
 				}
 				);
