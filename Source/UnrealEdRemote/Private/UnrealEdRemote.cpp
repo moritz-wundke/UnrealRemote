@@ -103,6 +103,11 @@ void FUnrealEdRemote::ShutdownModule()
 	FCoreDelegates::ApplicationWillDeactivateDelegate.RemoveAll(this);
 
 	StopServer();
+
+	if (UObjectInitialized())
+	{
+		UnregisterSettings();
+	}
 }
 
 bool FUnrealEdRemote::HandleSettingsSaved()
@@ -162,3 +167,5 @@ void FUnrealEdRemote::StopServer()
 		ServerInstance = NULL;
 	}
 }
+
+#undef LOCTEXT_NAMESPACE
